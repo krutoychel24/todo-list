@@ -53,6 +53,7 @@ h1 {
 
 .li-active {
         background-color: greenyellow;
+        text-decoration: line-through;
 }
 
 ul {

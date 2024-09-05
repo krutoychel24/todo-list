@@ -12,6 +12,31 @@ btn.addEventListener("click", (e) => {
     
 })
 
+//search
+
+window.onload = () => {
+    let search = document.querySelector(".search")
+    search.oninput = function() {
+        console.log(search.value)
+        let value = this.value.trim();
+        let list = document.querySelectorAll(".li")
+
+        if (value != "") {
+            list.forEach(el => {
+                if (el.innerText.search(value) === -1) {
+                    el.classList.add("hide")
+                } else {
+                    el.classList.remove("hide")
+                }
+            })
+        } else {
+            list.forEach(el => {
+                el.classList.remove("hide")
+            });
+        }
+    }
+}
+
 function createDeleteElements(value){
     console.log(value)
 
@@ -25,12 +50,12 @@ function createDeleteElements(value){
 
     const btn = document.createElement("btn")
     btn.className = "btn"
-    btn.textContent = "delete"
+    btn.textContent = "Delete"
     li.appendChild(btn)
 
     //create edit button
 
-    const editBtn = document.createElement("button")
+    const editBtn = document.createElement("editBtn")
     editBtn.className = "editBtn"
     editBtn.textContent = "Edit"
     li.appendChild(editBtn)

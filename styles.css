@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #72EDF2 10%, #5151E5 100%);
+    background: linear-gradient(135deg, #ffffff 10%, #84e6c4 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,19 +8,19 @@ body {
     margin: 0;
 }
 
-input {
+.input {
     width: 100%;
     padding: 10px;
-    border: 2px solid #5151E5;
+    border: 2px solid #aeaeec;
     border-radius: 5px;
     font-size: 16px;
 }
 
 button {
-    margin: 2px;
+    margin-top: 10px ;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #5151E5;
     color: white;
     font-size: 16px;
@@ -29,7 +29,7 @@ button {
 }
 
 button:hover {
-    background-color: #c541af;
+    background-color: #39f458;
 }
 
 h1 {
@@ -49,6 +49,7 @@ h1 {
     z-index: 5;
     width: 100%;
     text-transform: capitalize;
+    gap: 10px;
 }
 
 .li-active {
@@ -72,7 +73,7 @@ ul {
 }
 
 .btn {
-    background: red;
+    background: #f44242;
     border: none;
     color: white;
     margin-left: 15px;
@@ -80,4 +81,60 @@ ul {
     cursor: pointer;
     position: relative;
     z-index: 10;
+    display: inline-flex;
+}
+
+.hide   {
+    display: none;
+}
+
+.search {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #f18a8a;
+        border-radius: 5px;
+        font-size: 16px;
+        display: inline-flex
+}
+
+.searchText{
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.searchIcon{
+    width: 30px;
+    height: 30px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.todo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.todoIcon{
+    width: 30px;
+    height: 30px;
+}
+.editBtn {
+    background: #41b1f3;
+    border: none;
+    color: white;
+    margin-left: 15px;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+}
+
+.checkbox {
+    margin-right: 10px;
 }

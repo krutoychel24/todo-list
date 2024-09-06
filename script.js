@@ -1,100 +1,106 @@
-const input = document.querySelector(".input")
-const btn = document.querySelector(".btnAdd")
-const result = document.querySelector(".result")
+const input = document.querySelector(".input");
+const btn = document.querySelector(".btnAdd");
+const result = document.querySelector(".result");
+let localSaveM = JSON.parse(localStorage.getItem("tasks")) || [];
 
-btn.addEventListener("click", (e) => {
-    if (input.value === "") {
-        alert("Enter Text");
-        return
-    } 
-    createDeleteElements(input.value)
-    input.value = ""
-    
-})
-
-//search
-
+// При загрузке страницы загружаем задачи из localStorage
 window.onload = () => {
-    let search = document.querySelector(".search")
-    search.oninput = function() {
-        console.log(search.value)
+    localSaveM.forEach(task => createDeleteElements(task));
+
+    let search = document.querySelector(".search");
+    search.oninput = function () {
         let value = this.value.trim();
-        let list = document.querySelectorAll(".li")
+        let list = document.querySelectorAll(".li");
 
         if (value != "") {
             list.forEach(el => {
                 if (el.innerText.search(value) === -1) {
-                    el.classList.add("hide")
+                    el.classList.add("hide");
                 } else {
-                    el.classList.remove("hide")
+                    el.classList.remove("hide");
                 }
-            })
+            });
         } else {
             list.forEach(el => {
-                el.classList.remove("hide")
+                el.classList.remove("hide");
             });
         }
     }
-}
+};
 
-function createDeleteElements(value){
-    console.log(value)
+btn.addEventListener("click", (e) => {
+    if (input.value === "") {
+        alert("Enter Text");
+        return;
+    }
+    createDeleteElements(input.value);
+    localSaveM.push(input.value);
+    localStorage.setItem("tasks", JSON.stringify(localSaveM));
+    input.value = "";
+});
 
-    //create todo
+function createDeleteElements(value) {
+    // create todo
+    const li = document.createElement("li");
+    li.className = "li";
+    li.textContent = value;
 
-    const li = document.createElement("li")
-    li.className = "li"
-    li.textContent = value
+    // create delete button
+    const delSpanBtn = document.createElement("span");
+    li.appendChild(delSpanBtn);
 
-    //create delete button
+    const btn = document.createElement("btn"); // исправлено на button
+    btn.className = "btn";
+    btn.textContent = "Delete";
+    delSpanBtn.appendChild(btn);
 
-    const btn = document.createElement("btn")
-    btn.className = "btn"
-    btn.textContent = "Delete"
-    li.appendChild(btn)
+    // create edit button
+    const spanEditBtn = document.createElement("span");
+    li.appendChild(spanEditBtn);
 
-    //create edit button
+    const editBtn = document.createElement("btn"); // исправлено на button
+    editBtn.className = "editBtn";
+    editBtn.textContent = "Edit";
+    spanEditBtn.appendChild(editBtn);
 
-    const editBtn = document.createElement("editBtn")
-    editBtn.className = "editBtn"
-    editBtn.textContent = "Edit"
-    li.appendChild(editBtn)
-
-    //remove todo
-
+    // remove todo
     btn.addEventListener("click", (e) => {
-        result.removeChild(li)
-    })
+        result.removeChild(li);
 
-    //edit btn
+        // Обновляем localSaveM и localStorage
+        localSaveM = localSaveM.filter(task => task !== value);
+        localStorage.setItem("tasks", JSON.stringify(localSaveM));
+    });
 
+    // edit todo
     editBtn.addEventListener("click", (e) => {
-        const createNewInput = document.createElement("input")
-        createNewInput.type = "text"
-        createNewInput.value = li.firstChild.textContent
-        li.replaceChild(createNewInput, li.firstChild)
+        const createNewInput = document.createElement("input");
+        createNewInput.className = "nonActiveInput";
+        createNewInput.type = "text";
+        createNewInput.value = li.firstChild.textContent;
+        li.replaceChild(createNewInput, li.firstChild);
 
-        //keypress
- 
+        // keypress
         createNewInput.addEventListener("keypress", (e) => {
-            if(e.key === "Enter"){
-                li.replaceChild(document.createTextNode(createNewInput.value), createNewInput)
+            if (e.key === "Enter") {
+                li.replaceChild(document.createTextNode(createNewInput.value), createNewInput);
+
+                // Обновляем localSaveM и localStorage
+                const taskIndex = localSaveM.indexOf(value);
+                if (taskIndex > -1) {
+                    localSaveM[taskIndex] = createNewInput.value;
+                    localStorage.setItem("tasks", JSON.stringify(localSaveM));
+                }
             }
-            
-        })
-        
-    })
+        });
+    });
 
-    //active class
-
+    // active class
     li.addEventListener("click", (e) => {
-       li.classList.toggle("li-active")
-    })
-    
+        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SPAN' && e.target.className !== 'nonActiveInput') {
+            li.classList.toggle("li-active");
+        }
+    });
 
-
-    result.appendChild(li)
-
-    
+    result.appendChild(li);
 }
-

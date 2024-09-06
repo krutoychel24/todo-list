@@ -48,12 +48,11 @@ h1 {
     position: relative;
     z-index: 5;
     width: 100%;
-    text-transform: capitalize;
     gap: 10px;
 }
 
 .li-active {
-        background-color: greenyellow;
+        background-color: #a3ef95;
         text-decoration: line-through;
 }
 
@@ -76,7 +75,6 @@ ul {
     background: #f44242;
     border: none;
     color: white;
-    margin-left: 15px;
     padding: 10px;
     cursor: pointer;
     position: relative;
@@ -127,7 +125,6 @@ ul {
     background: #41b1f3;
     border: none;
     color: white;
-    margin-left: 15px;
     padding: 10px;
     cursor: pointer;
     position: relative;
@@ -135,6 +132,7 @@ ul {
     display: inline-flex;
 }
 
-.checkbox {
-    margin-right: 10px;
+.nonActiveInput {
+    border: 2px solid #000000;
+    border-radius: 5px;
 }
